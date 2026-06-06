@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LabelIX V1 — Questions for Mr Rajeev</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0F1117;--ink2:#2D3142;--ink3:#5C6070;
+  --line:#E4E7EF;--line2:#CBD0DE;
+  --page:#F7F8FB;--white:#FFFFFF;
+  --blue:#1A56DB;--blue-lt:#EBF2FF;--blue-mid:#93C5FD;
+  --green:#0D7A55;--green-lt:#ECFDF5;--green-mid:#6EE7B7;
+  --amber:#B45309;--amber-lt:#FFFBEB;--amber-mid:#FCD34D;
+  --red:#BE1E2D;--red-lt:#FEF2F2;--red-mid:#FCA5A5;
+  --purple:#5B21B6;--purple-lt:#F5F3FF;--purple-mid:#C4B5FD;
+  --teal:#0E7490;--teal-lt:#ECFEFF;--teal-mid:#67E8F9;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:14px;scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height:1.65;}
+
+/* ── LAYOUT ── */
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:232px;min-width:232px;
+  background:var(--ink);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:0;}
+.sb-brand{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sb-brand-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.3px;}
+.sb-brand-sub{font-size:10.5px;color:rgba(255,255,255,0.35);margin-top:2px;font-family:var(--mono);}
+
+.sb-group{padding:16px 0 4px;}
+.sb-group-label{
+  font-family:var(--mono);font-size:9px;font-weight:500;
+  color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;
+  padding:0 18px;margin-bottom:4px;
+}
+.sb-btn{
+  display:flex;align-items:center;gap:9px;
+  width:100%;padding:8px 18px;
+  border:none;background:none;cursor:pointer;
+  font-family:var(--sans);font-size:12.5px;font-weight:400;
+  color:rgba(255,255,255,0.5);text-align:left;
+  border-left:2px solid transparent;
+  transition:all 0.12s;
+}
+.sb-btn:hover{color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.05);}
+.sb-btn.active{
+  color:#fff;font-weight:500;
+  border-left-color:#60A5FA;
+  background:rgba(96,165,250,0.1);
+}
+.sb-dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,0.2);
+}
+.sb-btn.active .sb-dot,.sb-btn:hover .sb-dot{background:#60A5FA;}
+.doc-dot{background:#34D399 !important;}
+.sb-btn.active .doc-dot{background:#34D399 !important;}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;background:var(--page);}
+.panel{display:none;padding:40px 52px 80px;max-width:960px;}
+.panel.active{display:block;}
+
+/* ── DOC HEADER ── */
+.doc-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:9.5px;color:var(--blue);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;
+}
+.doc-eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue);}
+.doc-title{font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-0.5px;line-height:1.25;margin-bottom:8px;}
+.doc-sub{font-size:14px;color:var(--ink3);line-height:1.75;max-width:660px;margin-bottom:32px;}
+
+/* ── SECTION ── */
+.sec{margin-bottom:36px;}
+.sec-label{
+  font-family:var(--mono);font-size:9px;color:var(--ink3);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+/* ── CALLOUTS ── */
+.callout{border-radius:8px;padding:13px 16px;margin-bottom:14px;display:flex;gap:11px;border:1px solid;}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.callout-title{font-size:13px;font-weight:600;margin-bottom:2px;}
+.callout-text{font-size:12.5px;line-height:1.6;}
+.c-blue{background:var(--blue-lt);border-color:var(--blue-mid);}
+.c-blue .callout-title{color:#1E3A8A;}.c-blue .callout-text{color:#1E40AF;}
+.c-green{background:var(--green-lt);border-color:var(--green-mid);}
+.c-green .callout-title{color:#065F46;}.c-green .callout-text{color:#047857;}
+.c-amber{background:var(--amber-lt);border-color:var(--amber-mid);}
+.c-amber .callout-title{color:#78350F;}.c-amber .callout-text{color:#92400E;}
+.c-red{background:var(--red-lt);border-color:var(--red-mid);}
+.c-red .callout-title{color:#7F1D1D;}.c-red .callout-text{color:#991B1B;}
+.c-purple{background:var(--purple-lt);border-color:var(--purple-mid);}
+.c-purple .callout-title{color:#3B0764;}.c-purple .callout-text{color:#4C1D95;}
+
+/* ── CARDS ── */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;border-top:3px solid transparent;}
+.card-blue{border-top-color:var(--blue);}
+.card-green{border-top-color:var(--green);}
+.card-amber{border-top-color:var(--amber);}
+.card-red{border-top-color:var(--red);}
+.card-purple{border-top-color:var(--purple);}
+.card-teal{border-top-color:var(--teal);}
+.card-ink{border-top-color:var(--ink);}
+.card-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.card-desc{font-size:12px;color:var(--ink3);line-height:1.55;margin-bottom:8px;}
+.card-item{font-size:12px;color:var(--ink2);margin-bottom:4px;padding-left:10px;position:relative;line-height:1.4;}
+.card-item::before{content:'→';position:absolute;left:0;font-size:9px;color:var(--blue);top:2px;}
+.card-item.risk::before{content:'⚠';color:var(--amber);}
+.card-item.cross::before{content:'✕';color:var(--red);}
+.card-item.check::before{content:'✓';color:var(--green);}
+.card-item.open::before{content:'?';color:var(--purple);font-weight:700;}
+
+/* ── DECISION TABLE ── */
+.dtable{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid var(--line);font-size:12.5px;margin-bottom:14px;}
+.dtable th{background:var(--ink);color:rgba(255,255,255,0.75);font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:9px 13px;text-align:left;font-weight:500;}
+.dtable td{padding:9px 13px;border-bottom:1px solid #F1F5F9;color:var(--ink2);vertical-align:top;line-height:1.5;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr:hover td{background:#FAFBFC;}
+.dtable td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.tag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:5px;border:1px solid;display:inline-block;white-space:nowrap;}
+.tag-in{color:var(--green);border-color:var(--green-mid);background:var(--green-lt);}
+.tag-out{color:var(--ink3);border-color:var(--line2);background:#F8FAFC;text-decoration:line-through;}
+.tag-v2{color:var(--blue);border-color:var(--blue-mid);background:var(--blue-lt);}
+.tag-risk{color:var(--amber);border-color:var(--amber-mid);background:var(--amber-lt);}
+.tag-open{color:var(--purple);border-color:var(--purple-mid);background:var(--purple-lt);}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0;margin-bottom:14px;position:relative;}
+.tl-item{display:flex;gap:18px;position:relative;}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:36px;flex-shrink:0;}
+.tl-circle{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  flex-shrink:0;color:#fff;
+}
+.tl-line{width:2px;flex:1;min-height:16px;}
+.tl-content{flex:1;padding:0 0 24px;}
+.tl-month{font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:1px;margin-bottom:4px;}
+.tl-title{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.tl-items{display:flex;flex-direction:column;gap:3px;}
+.tl-item-text{font-size:12px;color:var(--ink2);padding-left:10px;position:relative;line-height:1.4;}
+.tl-item-text::before{content:'·';position:absolute;left:2px;color:var(--ink3);}
+.tl-deliverable{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:11.5px;font-weight:500;}
+
+/* ── QUESTIONS ── */
+.q-item{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:10px;}
+.q-num{font-family:var(--mono);font-size:9px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.q-text{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.4;}
+.q-context{font-size:12px;color:var(--ink3);line-height:1.55;}
+
+/* ── WORKFLOW DIAGRAM ── */
+.wf-wrap{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:24px;overflow-x:auto;margin-bottom:14px;}
+.wf-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:20px;}
+
+/* ── TEAM TABLE ── */
+.team-row{display:grid;grid-template-columns:140px 1fr 1fr;gap:0;align-items:start;padding:11px 0;border-bottom:1px solid var(--line);}
+.team-row:last-child{border-bottom:none;}
+.team-name{font-size:13px;font-weight:600;color:var(--ink);}
+.team-role{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:2px;}
+.team-owns{font-size:12px;color:var(--ink2);line-height:1.5;}
+.team-gap{font-size:12px;color:var(--amber);line-height:1.5;}
+
+/* ── PART NAV ── */
+.part-nav{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-top:24px;}
+.pn-label{font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:1px;}
+.pn-title{font-size:13px;font-weight:600;color:var(--ink);}
+.pn-btn{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:7px;background:var(--ink);color:#fff;border:none;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-brand-name">LabelIX V1</div>
+    <div class="sb-brand-sub">June 2026</div>
+  </div>
+
+  <div class="sb-group">
+    <div class="sb-group-label">Documents</div>
+    <button class="sb-btn active" onclick="show('doc1')"><span class="sb-dot doc-dot"></span>Doc 1 — V1 Proposal</button>
+    <button class="sb-btn" onclick="show('doc2')"><span class="sb-dot doc-dot"></span>Doc 2 — Tech Stack</button>
+    <button class="sb-btn" onclick="show('doc3')"><span class="sb-dot doc-dot"></span>Doc 3 — Questions</button>
+  </div>
+
+  <div class="sb-group">
+    <div class="sb-group-label">V1 Sections</div>
+    <button class="sb-btn" onclick="show('what')"><span class="sb-dot"></span>What we are building</button>
+    <button class="sb-btn" onclick="show('notin')"><span class="sb-dot"></span>What is not in v1</button>
+    <button class="sb-btn" onclick="show('engine')"><span class="sb-dot"></span>Engine state & plan</button>
+    <button class="sb-btn" onclick="show('workflow')"><span class="sb-dot"></span>V1 workflow diagram</button>
+    <button class="sb-btn" onclick="show('team')"><span class="sb-dot"></span>Team & gaps</button>
+    <button class="sb-btn" onclick="show('timeline')"><span class="sb-dot"></span>Timeline</button>
+    <button class="sb-btn" onclick="show('success')"><span class="sb-dot"></span>Success criteria</button>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ══ DOC 1: V1 PROPOSAL ══ -->
+<div id="panel-doc1" class="panel active">
+  <div class="doc-eyebrow">Document 1 of 3</div>
+  <div class="doc-title">LabelIX V1 — Product Proposal</div>
+  <div class="doc-sub">What we are building, what we are not building, why, and how we got to this scope. Written for internal leadership and external technical review. No marketing language.</div>
+
+  <div class="callout c-amber">
+    <div class="callout-icon">⚠</div>
+    <div>
+      <div class="callout-title">Important context before reading this document</div>
+      <div class="callout-text">The previous iteration of this product was scoped as an agentic AI platform. After rigorous architectural review, we have reset the scope to a deterministic, regulated workflow application. This is not a step backward. It is the correct foundation. Agentic AI capabilities can be layered on top of a working, validated system. They cannot substitute for one.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">The problem we are solving</div>
+    <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:12px;">Medical device manufacturers manage hundreds of label variants across global markets. Every label change — a manufacturer address update, a symbol addition, a regulatory requirement change — must pass through multiple departments for approval before it can reach manufacturing. Today this process runs on email chains, shared drives, and manual review. There is no central system, no audit trail, no visibility, and no enforcement. Changes take weeks. Errors reach manufacturing.</p>
+    <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;">J&J already uses GlobalVision for label comparison. The pain is not in the comparison step — it is in everything around it. Initiating a change. Routing it to the right people. Getting 6 departments to sign off. Tracking where it is blocked. Releasing the right version to manufacturing. LabelIX replaces that entire surrounding process and eventually replaces GlobalVision too.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">What LabelIX V1 is</div>
+    <div class="callout c-green">
+      <div class="callout-icon">✓</div>
+      <div>
+        <div class="callout-title">One sentence</div>
+        <div class="callout-text">LabelIX V1 is a regulated label lifecycle management system — a structured workflow application that handles change initiation, label metadata management, automated comparison and proofreading, multi-department approval, and manufacturing release, built to medtech compliance standards from day one.</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card card-green">
+        <div class="card-title">What the system owns</div>
+        <div class="card-item check">Structured label metadata — field values per variant, per market</div>
+        <div class="card-item check">Change request lifecycle — initiation through manufacturing release</div>
+        <div class="card-item check">Comparison and proofreading — YOLO-based, deterministic, no LLM dependency</div>
+        <div class="card-item check">Approval workflow — multi-department routing, e-signature, audit trail</div>
+        <div class="card-item check">Proof reports — structured, immutable, SHA-256 hashed</div>
+      </div>
+      <div class="card card-red">
+        <div class="card-title">What the system does not own</div>
+        <div class="card-item cross">Label artwork — InDesign files stay with the design team</div>
+        <div class="card-item cross">Print-ready file generation — output still comes from InDesign</div>
+        <div class="card-item cross">Live PLM sync — CSV import only in v1</div>
+        <div class="card-item cross">Agentic AI — no autonomous decision-making, no LLM in core workflow</div>
+        <div class="card-item cross">Canvas-based label editing — artwork stays in InDesign</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">The InDesign constraint — why the label editor works differently than expected</div>
+    <div class="callout c-red">
+      <div class="callout-icon">⚠</div>
+      <div>
+        <div class="callout-title">This is the most important architectural decision in v1</div>
+        <div class="callout-text">J&J's label source files are InDesign documents exported to PDF. InDesign is a proprietary format — you cannot parse or edit .indd files programmatically. LabelIX cannot own the artwork in v1. Attempting to do so would require replacing J&J's design toolchain before the product has proven its value — a deal-breaker for any regulated customer.</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.75;margin-bottom:10px;">The v1 model works as follows. LabelIX stores structured field metadata for each label variant — lot number format, expiry format, manufacturer address, symbol set, UDI, market-specific fields. When a change is required, the user declares what changed and what the new values are in LabelIX. That structured change request goes to the design team. The design team makes the edit in InDesign and uploads the new exported PDF to LabelIX. LabelIX runs the comparison engine to verify that the detected changes match the declared changes. If they match, the proof is clean and enters the approval workflow.</p>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.75;">This is less visually impressive than a canvas editor. It is more buildable, more auditable, and more aligned with how J&J's artwork workflow actually operates today. A canvas editor that owns print-ready file generation is a v3 capability — after the product is trusted, the team is larger, and the label template library has been built.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">V1 feature scope — what is in, what is deferred, and why</div>
+    <table class="dtable">
+      <thead><tr><th>Feature</th><th>V1 Status</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>NLU chat — read-only navigation, 15–20 intents</td><td><span class="tag tag-in">V1</span></td><td>Rules-based classifier. Simple to build. No training data required. Navigation and data queries only — no write actions via chat.</td></tr>
+        <tr><td>CSV / flat file SKU import</td><td><span class="tag tag-in">V1</span></td><td>Defined template, validation on upload, import log. Fast to build. PLM connector is v2.</td></tr>
+        <tr><td>Manual SKU and label entry</td><td><span class="tag tag-in">V1</span></td><td>Fallback for customers without structured data files.</td></tr>
+        <tr><td>Structured field editor — declare changes by field</td><td><span class="tag tag-in">V1</span></td><td>Form-based. Audit-clean. No InDesign dependency. Bulk propagation across variants included.</td></tr>
+        <tr><td>Variant management — base + market variants</td><td><span class="tag tag-in">V1</span></td><td>Base plus delta model. Override tracking per variant. Bulk apply with override warning.</td></tr>
+        <tr><td>PDF upload and comparison engine</td><td><span class="tag tag-in">V1</span></td><td>Core of the product. Already partially built. Hardening is the main v1 engineering effort.</td></tr>
+        <tr><td>YOLO symbol detection — 52 ISO classes</td><td><span class="tag tag-in">V1</span></td><td>Trained model exists. Needs accuracy validation on real J&J label pairs before go-live.</td></tr>
+        <tr><td>Text extraction and field diff</td><td><span class="tag tag-in">V1</span></td><td>PyMuPDF for vector PDFs. Textract fallback for scanned inputs. Myers diff for text comparison.</td></tr>
+        <tr><td>Barcode and DataMatrix detection</td><td><span class="tag tag-in">V1</span></td><td>ZXing primary, pyzbar fallback. Self-validates decoded value against printed digits.</td></tr>
+        <tr><td>Proof request form — declare expected changes</td><td><span class="tag tag-in">V1</span></td><td>User declares what should have changed. Engine verifies. Mismatch is flagged before approval.</td></tr>
+        <tr><td>Deterministic orchestrator — CLEAR / AMBIGUOUS / ESCALATE</td><td><span class="tag tag-in">V1</span></td><td>Python code. No LLM dependency. Replaces the Claude orchestrator. Cost goes from $600/month to under $30.</td></tr>
+        <tr><td>PDF proof report — immutable, SHA-256 hashed</td><td><span class="tag tag-in">V1</span></td><td>Structured findings. Pass/Conditional/Fail verdict. Source-tagged per detector.</td></tr>
+        <tr><td>Change request initiation and routing</td><td><span class="tag tag-in">V1</span></td><td>Structured form. Rules-based routing to approval departments.</td></tr>
+        <tr><td>Multi-department approval workflow</td><td><span class="tag tag-in">V1</span></td><td>Sequential and parallel routing. Configurable per customer.</td></tr>
+        <tr><td>E-signature — 21 CFR Part 11</td><td><span class="tag tag-in">V1</span></td><td>Identity re-verification at point of sign. Non-repudiable record. This is non-negotiable for a medtech customer.</td></tr>
+        <tr><td>Approval reminders and escalation</td><td><span class="tag tag-in">V1</span></td><td>Configurable reminder schedule. Manager escalation after N days. Celery background jobs.</td></tr>
+        <tr><td>Email and MS Teams notifications</td><td><span class="tag tag-in">V1</span></td><td>On submission, approval, rejection. Both channels. Teams bot exists in POC.</td></tr>
+        <tr><td>Manufacturing release and version locking</td><td><span class="tag tag-in">V1</span></td><td>Approved version locked. Cannot release a superseded revision. Print event logged.</td></tr>
+        <tr><td>Immutable audit log — all events</td><td><span class="tag tag-in">V1</span></td><td>PostgreSQL append-only table. Every event: actor, action, entity, before/after, timestamp.</td></tr>
+        <tr><td>Microsoft Entra SSO</td><td><span class="tag tag-in">V1</span></td><td>Enterprise requirement. Already implemented in POC.</td></tr>
+        <tr><td>Role-based access control</td><td><span class="tag tag-in">V1</span></td><td>5 personas. Enforced at API middleware. Not just UI-level.</td></tr>
+        <tr><td>Schema-per-tenant isolation</td><td><span class="tag tag-in">V1</span></td><td>Fast to build. Sufficient for 3–5 customers. Migrate to PostgreSQL RLS in v2.</td></tr>
+        <tr><td>Managed onboarding — internal team configures</td><td><span class="tag tag-in">V1</span></td><td>One week per customer. Admin tooling for internal use. Self-serve in v2.</td></tr>
+        <tr><td>Canvas label editor — visual artwork editing</td><td><span class="tag tag-v2">V3</span></td><td>Requires owning print-ready file generation. Blocked by InDesign constraint. Not buildable correctly in v1.</td></tr>
+        <tr><td>Live PLM connector — Windchill / Veeva</td><td><span class="tag tag-v2">V2</span></td><td>Complex. On-premise. 3-month integration risk. CSV covers v1 needs.</td></tr>
+        <tr><td>PostgreSQL Row Level Security</td><td><span class="tag tag-v2">V2</span></td><td>Schema-per-tenant is sufficient for pilot customers. RLS is a v2 migration.</td></tr>
+        <tr><td>Stripe billing and self-serve onboarding</td><td><span class="tag tag-v2">V2</span></td><td>Managed onboarding in v1. Billing infrastructure in v2 when customer count justifies it.</td></tr>
+        <tr><td>DPO learning pipeline — AI learns from reviews</td><td><span class="tag tag-v2">V3+</span></td><td>Requires a base model to fine-tune and thousands of labelled preference pairs. Not v1 or v2.</td></tr>
+        <tr><td>IQ/OQ/PQ validation documentation</td><td><span class="tag tag-risk">Parallel track</span></td><td>Must begin in Week 1 with regulatory consultant. Cannot be done after the fact. Runs alongside development.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="part-nav">
+    <div><div class="pn-label">Next</div><div class="pn-title">Doc 2 — Tech Stack Decisions</div></div>
+    <button class="pn-btn" onclick="show('doc2')">Next →</button>
+  </div>
+</div>
+
+<!-- ══ DOC 2: TECH STACK ══ -->
+<div id="panel-doc2" class="panel">
+  <div class="doc-eyebrow">Document 2 of 3</div>
+  <div class="doc-title">Tech Stack — Decisions & Rationale</div>
+  <div class="doc-sub">Every technology decision for v1. What we chose, what we rejected, why, and where the risks are. Open questions flagged explicitly for consultant review.</div>
+
+  <div class="sec">
+    <div class="sec-label">Core stack decisions</div>
+    <table class="dtable">
+      <thead><tr><th>Layer</th><th>Decision</th><th>Rejected</th><th>Rationale</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td>Frontend</td><td>Next.js 14 (App Router) + TypeScript strict</td><td>React SPA (Vite)</td><td>SSR for fast load. Edge middleware for tenant routing. API routes keep backend calls server-side. Preview URLs per branch.</td><td><span class="tag tag-risk">Medium</span> — App Router is newer. Team needs ramp-up time.</td></tr>
+        <tr><td>Backend</td><td>FastAPI + Python 3.11 + asyncio</td><td>Django, Node.js</td><td>Already in use for proofreading engine. Async throughout. Team knows it. No migration cost.</td><td><span class="tag tag-in">Low</span> — proven in production already.</td></tr>
+        <tr><td>Database</td><td>PostgreSQL 16 + SQLAlchemy 2.0 async + Alembic</td><td>MongoDB Atlas</td><td>Relational data model suits label lifecycle. ACID transactions for approval workflows. Schema migrations are versioned and auditable — required for regulated software.</td><td><span class="tag tag-risk">Medium</span> — Team currently uses MongoDB. Migration requires senior backend engineer.</td></tr>
+        <tr><td>Multi-tenancy</td><td>Schema-per-tenant (v1) → PostgreSQL RLS (v2)</td><td>RLS from day one</td><td>Schema-per-tenant is faster to build and easier to reason about. RLS adds 6 weeks of backend work in v1 for a problem that does not exist until customer count grows.</td><td><span class="tag tag-in">Low</span> — Clean migration path documented.</td></tr>
+        <tr><td>Auth</td><td>Microsoft Entra ID (MSAL) — OAuth 2.0</td><td>Custom auth, Auth0</td><td>Enterprise SSO is a hard requirement for any medical device customer. Entra is already integrated in the POC. JWT in HTTP-only cookies.</td><td><span class="tag tag-in">Low</span> — already working.</td></tr>
+        <tr><td>Background jobs</td><td>Celery + Redis</td><td>FastAPI BackgroundTasks</td><td>Persistent across restarts. Retry logic. Priority queues. Required for approval reminders, escalation, and comparison pipeline jobs.</td><td><span class="tag tag-risk">Medium</span> — New addition. Needs senior backend to set up correctly.</td></tr>
+        <tr><td>Infrastructure</td><td>Azure VM + Docker + Azure Container Registry</td><td>AKS (v1), AWS</td><td>Current infra already in Azure. Docker containers for all system libs. AKS is v2 when auto-scaling is needed.</td><td><span class="tag tag-in">Low</span> — already running.</td></tr>
+        <tr><td>File storage</td><td>Azure Blob Storage</td><td>S3, local disk</td><td>Already in use. Tenant-scoped container paths. 7-year retention policy for regulated label records.</td><td><span class="tag tag-in">Low</span> — already working.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Comparison engine — technology decisions</div>
+    <table class="dtable">
+      <thead><tr><th>Component</th><th>Decision</th><th>Status</th><th>Key point</th></tr></thead>
+      <tbody>
+        <tr><td>Symbol detection</td><td>YOLO v11 (Ultralytics) — 52 ISO 15223-1 classes</td><td><span class="tag tag-in">Built</span></td><td>Trained on 600 annotated label images. mAP@50 95.6% on training data. Needs validation on real J&J held-out set before go-live claim.</td></tr>
+        <tr><td>Text extraction</td><td>PyMuPDF (vector PDFs) → AWS Textract fallback (scans)</td><td><span class="tag tag-risk">Fix in progress</span></td><td>Current pipeline is image-first — root cause of false positives. Dual-path fix is the first engineering task in v1.</td></tr>
+        <tr><td>Text comparison</td><td>Myers diff algorithm — character-level</td><td><span class="tag tag-in">Built</span></td><td>Deterministic. No LLM. Exact change detection per field.</td></tr>
+        <tr><td>Barcode detection</td><td>ZXing-cpp primary + pyzbar fallback</td><td><span class="tag tag-in">Built</span></td><td>Decodes Code128, EAN, GS1, DataMatrix, QR. Self-validates decoded value against printed digits.</td></tr>
+        <tr><td>Image diff</td><td>OpenCV pixel diff + SSIM + SIFT/RANSAC alignment</td><td><span class="tag tag-in">Built</span></td><td>Handles skewed scans. Structural similarity for graphic regions.</td></tr>
+        <tr><td>Rule engine</td><td>Python — 49 deterministic rules</td><td><span class="tag tag-in">Built</span></td><td>No LLM cost. Mandatory element checks. Needs ISO/FDA clause citations added.</td></tr>
+        <tr><td>Orchestrator</td><td>Deterministic Python — CLEAR / AMBIGUOUS / ESCALATE routing</td><td><span class="tag tag-risk">To build</span></td><td>Replaces Claude as orchestrator. CLEAR findings: zero API cost. AMBIGUOUS: constrained LLM call per finding only. ESCALATE: human required. Brings Claude cost from $600/month to under $30.</td></tr>
+        <tr><td>LLM (Claude)</td><td>Anthropic API — AMBIGUOUS findings only</td><td><span class="tag tag-risk">Downscoped</span></td><td>Claude is no longer the orchestrator. It handles only genuinely ambiguous findings — a minority. Direct Anthropic API replacing AWS Bedrock.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">NLU chat — technology decision</div>
+    <div class="callout c-blue">
+      <div class="callout-icon">ℹ</div>
+      <div>
+        <div class="callout-title">This is not an AI chatbot — it is a structured command interface</div>
+        <div class="callout-text">The NLU chat in v1 handles navigation and read-only data queries. 15 to 20 intents. Rules-based classifier or a lightweight keyword model — no DistilBERT, no training data required, no cold-start problem. Write actions (approve, edit, submit) stay in the UI with proper confirmation flows and audit trails. Chat is the fastest way to navigate and query. It is not a decision-making interface.</div>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card card-green">
+        <div class="card-title">What chat does in v1</div>
+        <div class="card-item check">Navigate — "open SKU 103565000", "show pending approvals"</div>
+        <div class="card-item check">Query data — "how many labels are pending?", "status of REQ-042"</div>
+        <div class="card-item check">Start a comparison — "compare labels for REQ-042"</div>
+        <div class="card-item check">Show a report — "show report for REQ-042"</div>
+      </div>
+      <div class="card card-red">
+        <div class="card-title">What chat does not do in v1</div>
+        <div class="card-item cross">No write actions via chat — no approvals, edits, or submissions</div>
+        <div class="card-item cross">No multi-turn context — each message is independent</div>
+        <div class="card-item cross">No regulatory question answering — that is v2 with RAG</div>
+        <div class="card-item cross">No DistilBERT — no training data needed, no cold-start problem</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Open questions — for consultant review</div>
+    <div class="card-grid">
+      <div class="card card-amber">
+        <div class="card-title">Schema-per-tenant acceptable?</div>
+        <div class="card-desc">We are using schema-per-tenant isolation for v1, migrating to PostgreSQL RLS in v2. The question is whether enterprise medtech customers will accept this for a pilot, or whether they will immediately require dedicated infrastructure or data residency guarantees.</div>
+        <div class="card-item open">Will J&J's IT security team require dedicated infrastructure even for a pilot?</div>
+      </div>
+      <div class="card card-amber">
+        <div class="card-title">21 CFR Part 11 e-signature — pilot vs production bar</div>
+        <div class="card-desc">We are implementing identity re-verification at point of signature with a non-repudiable timestamped record. The question is whether this meets the bar for a controlled pilot, or whether J&J requires full CSV compliance documentation before any labels go through the system.</div>
+        <div class="card-item open">What is the minimum e-signature implementation J&J will accept for a pilot?</div>
+      </div>
+      <div class="card card-amber">
+        <div class="card-title">YOLO accuracy — what does J&J's QA team need to see?</div>
+        <div class="card-desc">Our model has 95.6% mAP@50 on our training data. We have not yet run it against a held-out set of real J&J labels. We do not know our false negative rate on production inputs. Before go-live we will run 20+ real label pairs and document the results.</div>
+        <div class="card-item open">What accuracy threshold will J&J's QA team require to use the system alongside their existing review process?</div>
+      </div>
+      <div class="card card-amber">
+        <div class="card-title">Label editor — management assumption</div>
+        <div class="card-desc">Internal management believes a label editor is easy to build and is the right go-to-market angle. The architectural reality is that J&J's artwork is InDesign-sourced and we cannot own print-ready file generation in v1 without replacing their design toolchain.</div>
+        <div class="card-item open">In your experience, is a structured field editor (Option B) a credible go-to-market angle for a medtech label management product, or does the customer expect canvas-level editing?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="part-nav">
+    <div><div class="pn-label">Next</div><div class="pn-title">Doc 3 — Questions for Mr Rajeev</div></div>
+    <button class="pn-btn" onclick="show('doc3')">Next →</button>
+  </div>
+</div>
+
+<!-- ══ DOC 3: QUESTIONS ══ -->
+<div id="panel-doc3" class="panel">
+  <div class="doc-eyebrow">Document 3 of 3</div>
+  <div class="doc-title">Questions for Mr Rajeev</div>
+  <div class="doc-sub"></div>
+
+  <div class="callout c-blue">
+    <div class="callout-icon">ℹ</div>
+    <div>
+      <div class="callout-title">How to use these questions</div>
+      <div class="callout-text">These are not rhetorical. Each one has a direct architectural or product consequence. If your answer to Q1 is "no, J&J will not use a pilot system without full CSV validation," that changes our timeline by 3 months. If your answer to Q4 is "structured field editing is acceptable," that removes a major scope concern. We need your real answer, not a diplomatic one.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Compliance and validation</div>
+
+    <div class="q-item">
+      <div class="q-num">Question 01 — Pilot validation requirements</div>
+      <div class="q-text">For a controlled pilot with a medical device manufacturer — not full production, but real label workflows with their QA team watching — what is the minimum compliance bar we need to meet before go-live?</div>
+      <div class="q-context">Specifically: do we need IQ/OQ/PQ documentation completed before J&J will allow a single label to go through our system, or is there a lighter validation path for a pilot phase? We have a regulatory consultant we plan to engage from Week 1. We need to know exactly what they need to produce and in what sequence.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 02 — 21 CFR Part 11 e-signature depth</div>
+      <div class="q-text">We are implementing electronic signatures with identity re-verification at point of signing, a non-repudiable timestamped record, and the meaning of the signature captured. Is this sufficient for a medtech pilot, or does J&J require additional elements — biometric binding, third-party certificate authority, specific audit log format?</div>
+      <div class="q-context">We want to implement this correctly once, not upgrade it under pressure later. Tell us what the real bar is, even if it is harder than what we have planned.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 03 — Audit trail format</div>
+      <div class="q-text">Our audit log captures actor, action, entity, before state, after state, and timestamp for every system event in an append-only PostgreSQL table. What does J&J's QA team actually need to see in an audit log during an internal audit or regulatory inspection? Are there specific fields, formats, or export requirements we are likely missing?</div>
+      <div class="q-context">We would rather design this correctly upfront than rebuild it when J&J's quality team runs their first audit.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Product and go-to-market</div>
+
+    <div class="q-item">
+      <div class="q-num">Question 04 — Label editor vs structured field editor</div>
+      <div class="q-text">Our internal management believes a visual canvas label editor is the right go-to-market angle and assumes it is straightforward to build. The architectural reality is that J&J's source files are InDesign documents. We cannot own print-ready file generation in v1 without replacing their design toolchain — which no customer will accept before the product is proven. We have proposed a structured field editor instead — the user declares what changed, the design team executes it in InDesign, we verify the result through comparison. In your experience building medtech products, is this a credible and sellable v1 capability, or is there a better way to frame it?</div>
+      <div class="q-context">This decision affects our go-to-market story significantly. Management needs to hear the honest answer from someone who has been in this position before.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 05 — Replacing GlobalVision</div>
+      <div class="q-text">J&J already uses GlobalVision for label comparison. GlobalVision is a validated, qualified tool in their quality system. We plan to replace it eventually, but this requires J&J to decommission a validated system, re-validate ours, and retrain their users. What is a realistic timeline and process for that transition in your experience? And is there a smarter way to position v1 that gets us into J&J's workflow faster — perhaps as a complement to GlobalVision initially rather than a replacement?</div>
+      <div class="q-context">We want to get a signed pilot agreement as fast as possible. If positioning as a complement gets us there faster than positioning as a replacement, we need to know that now.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 06 — Artwork workflow reality check</div>
+      <div class="q-text">We have assumed that J&J's label artwork lives in InDesign files managed either internally or by a design agency, and that they export to PDF for comparison and approval. Is this assumption correct for a company of J&J's size, or is there typically a Digital Asset Management system or a structured artwork management platform in between? If there is a DAM or artwork management layer we have not accounted for, what does our integration point look like?</div>
+      <div class="q-context">If we have misunderstood the artwork workflow, the entire v1 upload-and-compare flow may need to be reconsidered.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Technical architecture</div>
+
+    <div class="q-item">
+      <div class="q-num">Question 07 — Infrastructure for a medtech pilot</div>
+      <div class="q-text">We are running on Azure — Azure VM, Azure Blob Storage, Azure Container Registry, Azure Key Vault. Schema-per-tenant isolation in PostgreSQL for v1. Will J&J's IT security team accept cloud-hosted SaaS for a pilot involving real label data, or will they require on-premise deployment or specific data residency guarantees? And are there specific Azure certifications or configurations — HIPAA, ISO 27001, FedRAMP — that a medical device customer will ask for before signing?</div>
+      <div class="q-context">If on-premise is a hard requirement, our architecture needs to change significantly. We need to know this before we commit to the cloud-first approach.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 08 — YOLO-based symbol detection — QA acceptance</div>
+      <div class="q-text">Our comparison engine uses a YOLO v11 model trained on 600 annotated medical device label images to detect and classify ISO 15223-1 symbols. It produces class names, bounding boxes, and confidence scores per detection. We are about to run validation against a held-out set of real J&J label pairs to measure our false negative rate. What does J&J's QA team typically need to see from an automated detection tool — in terms of accuracy metrics, validation documentation, and process controls — before they trust it enough to use it as part of their quality workflow?</div>
+      <div class="q-context">We want to define the right success threshold for our validation run, not an arbitrary one.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 09 — Team gaps and hiring priorities</div>
+      <div class="q-text">Our current team is a mix of junior engineers with 6 months of experience and one backend engineer with 3 years. We are hiring senior engineers — ML, backend, frontend, NLP. Given the regulated context, what are the skills or experience you would most want to see in the people building this? And are there any roles you would prioritise differently than we have?</div>
+      <div class="q-context">We want your honest view on whether our team plan is credible for the compliance level we are targeting.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Question 10 — What would make you refuse to use this product as a J&J quality manager?</div>
+      <div class="q-text">This is the most important question. If you were the QA director at J&J evaluating LabelIX for a pilot, what would make you say no? What is the single biggest gap between what we have described and what a medical device company actually needs before they let a label management tool touch their workflow?</div>
+      <div class="q-context">We would rather hear the hardest objection from you now than from J&J in month four.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHAT WE ARE BUILDING ══ -->
+<div id="panel-what" class="panel">
+  <div class="doc-eyebrow">V1 Scope</div>
+  <div class="doc-title">What we are building</div>
+  <div class="doc-sub">The six modules that make up V1. Each one is scoped, bounded, and connected to the others through defined interfaces.</div>
+  <div class="card-grid">
+    <div class="card card-blue">
+      <div class="card-title">Module 1 — NLU Navigation Layer</div>
+      <div class="card-desc">Rules-based intent classifier. 15–20 intents. Navigation and read-only queries only.</div>
+      <div class="card-item">Navigate to SKU, comparison, approval queue, reports</div>
+      <div class="card-item">Query data — status, counts, pending items</div>
+      <div class="card-item">No write actions. No multi-turn context. No training data needed.</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title">Module 2 — Label Data Management</div>
+      <div class="card-desc">CSV import, manual entry, structured field storage. Variant management with base plus delta model.</div>
+      <div class="card-item">CSV template with validation on upload</div>
+      <div class="card-item">Manual SKU and label field entry</div>
+      <div class="card-item">Bulk propagation across variants with override tracking</div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">Module 3 — Comparison and Proofreading Engine</div>
+      <div class="card-desc">The core of the product. YOLO symbol detection, text diff, barcode verification, deterministic orchestrator. No LLM in the critical path.</div>
+      <div class="card-item">YOLO v11 — 52 ISO symbol classes</div>
+      <div class="card-item">PyMuPDF text extraction + Myers diff</div>
+      <div class="card-item">ZXing barcode decoding and cross-validation</div>
+      <div class="card-item">CLEAR / AMBIGUOUS / ESCALATE routing</div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title">Module 4 — Approval Workflow</div>
+      <div class="card-desc">Change request initiation, multi-department routing, 21 CFR Part 11 e-signature, reminders, escalation.</div>
+      <div class="card-item">Structured change request form</div>
+      <div class="card-item">Configurable department routing</div>
+      <div class="card-item">Identity re-verification at point of signature</div>
+      <div class="card-item">Escalation on day 3, day 5, day 7</div>
+    </div>
+    <div class="card card-teal">
+      <div class="card-title">Module 5 — Reports and Audit Trail</div>
+      <div class="card-desc">Immutable PDF proof reports. Append-only audit log. Every event attributed, timestamped, non-repudiable.</div>
+      <div class="card-item">SHA-256 hashed input files</div>
+      <div class="card-item">Source-tagged findings per detector</div>
+      <div class="card-item">Pass / Conditional / Fail verdict by code</div>
+      <div class="card-item">Full audit log — actor, action, entity, before/after</div>
+    </div>
+    <div class="card card-ink">
+      <div class="card-title">Module 6 — Manufacturing Release</div>
+      <div class="card-desc">Approved version locked for print. Version enforcement. Print event logged to audit trail.</div>
+      <div class="card-item">Cannot release superseded revisions</div>
+      <div class="card-item">Manufacturing team notified on release</div>
+      <div class="card-item">Print event recorded with timestamp and user</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NOT IN V1 ══ -->
+<div id="panel-notin" class="panel">
+  <div class="doc-eyebrow">V1 Scope</div>
+  <div class="doc-title">What is not in V1 — and why</div>
+  <div class="doc-sub">These are not omissions. They are deliberate deferrals with specific reasons. Each one has a path to a future version.</div>
+  <div class="card-grid">
+    <div class="card card-red">
+      <div class="card-title">Canvas label editor</div>
+      <div class="card-desc">Management believes this is the go-to-market angle. The reality: J&J's artwork is InDesign-sourced. We cannot own print-ready file generation in v1 without replacing their design toolchain. A canvas editor that cannot produce a validated print file is a prototype, not a product. This is v3 — after the product is trusted, the team is larger, and the label template library is built.</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Live PLM connector</div>
+      <div class="card-desc">Windchill runs on-premise behind a corporate firewall. IT security approval, custom field mappings, outdated documentation. What looks like 2 weeks of work regularly becomes 3 months. CSV import solves the v1 data problem cleanly. PLM connector is v2 when the customer relationship is established and we have IT access.</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Agentic AI / LLM in core workflow</div>
+      <div class="card-desc">The previous architecture placed Claude as the orchestrator of the entire comparison pipeline. This cost $600/month on a pre-revenue product and introduced a non-deterministic element into a regulated workflow. Claude is now bounded to AMBIGUOUS findings only. The core workflow is deterministic Python. No autonomous decision-making.</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">DPO learning pipeline</div>
+      <div class="card-desc">DPO requires a base model to fine-tune and thousands of labelled preference pairs. Neither exists yet. The data collection infrastructure (structured human decisions) is in v1. The actual fine-tuning is v3+ when there is enough data and a base model to fine-tune against. Listing it as a v1 feature was dishonest.</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Self-serve onboarding and Stripe billing</div>
+      <div class="card-desc">Managed onboarding — internal team sets up each customer — is faster to build and sufficient for 3–5 pilot customers. Self-serve adds complexity before we know what the onboarding flow should be. Stripe billing is v2 when customer count justifies the infrastructure.</div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">IQ/OQ/PQ validation documentation</div>
+      <div class="card-desc">This is not deferred — it runs in parallel from Week 1 with the regulatory consultant. It is not a product feature but it is non-negotiable for any medtech customer using this in production. Every feature decision affects what the OQ test scripts look like. The consultant must be engaged before development starts, not after.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ENGINE STATE ══ -->
+<div id="panel-engine" class="panel">
+  <div class="doc-eyebrow">Comparison Engine</div>
+  <div class="doc-title">Engine state today — and the plan to production accuracy</div>
+  <div class="doc-sub">Honest assessment of where the engine is, what the known gaps are, and what the improvement plan looks like.</div>
+  <div class="callout c-amber">
+    <div class="callout-icon">⚠</div>
+    <div>
+      <div class="callout-title">Current state — honest</div>
+      <div class="callout-text">The comparison engine works well on clean vector PDFs exported from InDesign. It produces noise and false positives on scanned inputs and complex label layouts. The root cause of most false positives is the image-first PDF pipeline — text is being OCR'd from rasterised images instead of extracted from the vector layer. This is a known fix. The Claude orchestrator has been paused due to $600/month API cost. Replacing it with a deterministic Python orchestrator is the first engineering task in v1.</div>
+    </div>
+  </div>
+  <div class="card-grid">
+    <div class="card card-green">
+      <div class="card-title">What works today</div>
+      <div class="card-item check">YOLO symbol detection — 52 ISO classes, 95.6% mAP@50 on training data</div>
+      <div class="card-item check">Barcode decoding — ZXing + pyzbar, self-validates against printed digits</div>
+      <div class="card-item check">Image diff — OpenCV + SSIM, handles skewed scans</div>
+      <div class="card-item check">PDF report generation — structured output, findings by category</div>
+      <div class="card-item check">Clean PDF comparison — works reliably on InDesign-exported PDFs</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Known gaps today</div>
+      <div class="card-item risk">Image-first PDF pipeline — text OCR'd from raster instead of extracted from vector</div>
+      <div class="card-item risk">Scanned input noise — false positives on complex scanned label layouts</div>
+      <div class="card-item risk">YOLO accuracy on J&J's real label portfolio — not yet validated</div>
+      <div class="card-item risk">Claude dependency in orchestrator — paused due to cost, not yet replaced</div>
+      <div class="card-item risk">No held-out accuracy measurement — mAP@50 on training data is not a production accuracy claim</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-label">Improvement plan — month by month</div>
+    <div class="card-grid-3">
+      <div class="card card-blue">
+        <div class="card-title">Month 1 — Fix the foundation</div>
+        <div class="card-item">Replace image-first with PyMuPDF dual-path (vector for PDFs, Textract for scans)</div>
+        <div class="card-item">Build deterministic Python orchestrator — CLEAR / AMBIGUOUS / ESCALATE</div>
+        <div class="card-item">Run 20+ real J&J label pairs, document true positives, false positives, false negatives</div>
+        <div class="card-item">Replace Bedrock with direct Anthropic API</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-title">Month 2 — Close the gaps</div>
+        <div class="card-item">Address top 3 failure categories identified from Month 1 validation run</div>
+        <div class="card-item">Annotate 300 additional label images for YOLO retraining</div>
+        <div class="card-item">Add ISO clause citations to symbol detection output</div>
+        <div class="card-item">Connect comparison engine to approval workflow — proof feeds approval</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-title">Month 3 — Validate for pilot</div>
+        <div class="card-item">Second validation run on J&J labels — measure improvement</div>
+        <div class="card-item">Document validation results in format J&J QA team can review</div>
+        <div class="card-item">Run full end-to-end flow — initiation through report through approval</div>
+        <div class="card-item">Get J&J QA team to review 10 reports and give structured feedback</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WORKFLOW DIAGRAM ══ -->
+<div id="panel-workflow" class="panel">
+  <div class="doc-eyebrow">V1 Architecture</div>
+  <div class="doc-title">V1 module workflow — how everything connects</div>
+  <div class="doc-sub">The complete flow from a user initiating a label change through to manufacturing release. Every module, every handoff, every data store.</div>
+
+  <div class="wf-wrap">
+    <div class="wf-title">LabelIX V1 — End-to-end workflow</div>
+    <svg width="100%" viewBox="0 0 860 1020" xmlns="http://www.w3.org/2000/svg" style="min-width:760px;font-family:'DM Sans',sans-serif;">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 2L8 5L2 8" fill="none" stroke="#CBD0DE" stroke-width="1.5" stroke-linecap="round"/>
+      </marker>
+      <marker id="arr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 2L8 5L2 8" fill="none" stroke="#0D7A55" stroke-width="1.5" stroke-linecap="round"/>
+      </marker>
+      <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 2L8 5L2 8" fill="none" stroke="#1A56DB" stroke-width="1.5" stroke-linecap="round"/>
+      </marker>
+      <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 2L8 5L2 8" fill="none" stroke="#BE1E2D" stroke-width="1.5" stroke-linecap="round"/>
+      </marker>
+    </defs>
+
+    <!-- ── MODULE 1: NLU LAYER ── -->
+    <rect x="280" y="10" width="300" height="52" rx="8" fill="#0F1117"/>
+    <text x="430" y="30" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">User — Microsoft Entra SSO</text>
+    <text x="430" y="47" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.45)" font-family="DM Mono">All personas · OAuth 2.0 · JWT</text>
+
+    <line x1="430" y1="62" x2="430" y2="84" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="230" y="84" width="400" height="48" rx="8" fill="#EBF2FF" stroke="#93C5FD" stroke-width="1"/>
+    <text x="430" y="102" text-anchor="middle" font-size="11" font-weight="600" fill="#1E3A8A">Module 1 — NLU Navigation Layer</text>
+    <text x="430" y="118" text-anchor="middle" font-size="9" fill="#1A56DB" font-family="DM Mono">Rules-based classifier · 15–20 intents · Read-only queries and navigation</text>
+
+    <!-- NLU routes to features -->
+    <line x1="300" y1="132" x2="150" y2="160" stroke="#CBD0DE" stroke-width="0.8" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+    <line x1="430" y1="132" x2="430" y2="160" stroke="#CBD0DE" stroke-width="0.8" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+    <line x1="560" y1="132" x2="710" y2="160" stroke="#CBD0DE" stroke-width="0.8" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+    <!-- ── MODULE 2: LABEL DATA ── -->
+    <rect x="60" y="160" width="180" height="84" rx="8" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1"/>
+    <text x="150" y="180" text-anchor="middle" font-size="11" font-weight="600" fill="#065F46">Module 2</text>
+    <text x="150" y="195" text-anchor="middle" font-size="10" font-weight="500" fill="#0D7A55">Label Data Mgmt</text>
+    <text x="150" y="210" text-anchor="middle" font-size="9" fill="#047857" font-family="DM Mono">CSV import · manual entry</text>
+    <text x="150" y="224" text-anchor="middle" font-size="9" fill="#047857" font-family="DM Mono">Variant mgmt · bulk propagate</text>
+    <text x="150" y="236" text-anchor="middle" font-size="9" fill="#047857" font-family="DM Mono">PostgreSQL label_variants table</text>
+
+    <!-- ── CHANGE REQUEST FLOW ── -->
+    <rect x="320" y="160" width="220" height="84" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1"/>
+    <text x="430" y="180" text-anchor="middle" font-size="11" font-weight="600" fill="#3B0764">Change Request Initiation</text>
+    <text x="430" y="196" text-anchor="middle" font-size="9" fill="#5B21B6" font-family="DM Mono">User declares what changed</text>
+    <text x="430" y="210" text-anchor="middle" font-size="9" fill="#5B21B6" font-family="DM Mono">Field values · variants affected</text>
+    <text x="430" y="224" text-anchor="middle" font-size="9" fill="#5B21B6" font-family="DM Mono">CR record in PostgreSQL</text>
+    <text x="430" y="238" text-anchor="middle" font-size="9" fill="#5B21B6" font-family="DM Mono">workflow_events: CR_INITIATED</text>
+
+    <!-- Reports viewer -->
+    <rect x="620" y="160" width="180" height="84" rx="8" fill="#ECFEFF" stroke="#67E8F9" stroke-width="1"/>
+    <text x="710" y="180" text-anchor="middle" font-size="11" font-weight="600" fill="#0E4F60">Report Viewer</text>
+    <text x="710" y="196" text-anchor="middle" font-size="9" fill="#0E7490" font-family="DM Mono">Query past comparisons</text>
+    <text x="710" y="210" text-anchor="middle" font-size="9" fill="#0E7490" font-family="DM Mono">Filter by SKU · date · status</text>
+    <text x="710" y="224" text-anchor="middle" font-size="9" fill="#0E7490" font-family="DM Mono">Download PDF reports</text>
+    <text x="710" y="238" text-anchor="middle" font-size="9" fill="#0E7490" font-family="DM Mono">Audit log viewer</text>
+
+    <!-- ── DESIGN TEAM STEP ── -->
+    <line x1="430" y1="244" x2="430" y2="270" stroke="#5B21B6" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="270" y="270" width="320" height="60" rx="8" fill="#FFF7ED" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <text x="430" y="293" text-anchor="middle" font-size="11" font-weight="600" fill="#78350F">Design team executes in InDesign</text>
+    <text x="430" y="309" text-anchor="middle" font-size="9" fill="#92400E" font-family="DM Mono">Applies declared field changes · Exports new PDF · Uploads to LabelIX</text>
+    <text x="430" y="323" text-anchor="middle" font-size="8" fill="#B45309" font-family="DM Mono">(LabelIX does not own artwork — InDesign stays with design team in v1)</text>
+
+    <!-- ── MODULE 3: COMPARISON ENGINE ── -->
+    <line x1="430" y1="330" x2="430" y2="356" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="60" y="356" width="740" height="96" rx="8" fill="#F7F8FB" stroke="#1A56DB" stroke-width="1.5"/>
+    <text x="90" y="376" font-size="8.5" fill="#1A56DB" font-family="DM Mono" letter-spacing="1">MODULE 3 — COMPARISON &amp; PROOFREADING ENGINE</text>
+
+    <!-- 5 agents -->
+    <rect x="78" y="384" width="120" height="56" rx="5" fill="#EBF2FF" stroke="#93C5FD" stroke-width="0.8"/>
+    <text x="138" y="400" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1E3A8A">Text Agent</text>
+    <text x="138" y="413" text-anchor="middle" font-size="8.5" fill="#1A56DB" font-family="DM Mono">PyMuPDF + Myers diff</text>
+    <text x="138" y="426" text-anchor="middle" font-size="8.5" fill="#1A56DB" font-family="DM Mono">Textract fallback</text>
+    <text x="138" y="434" text-anchor="middle" font-size="7.5" fill="#60A5FA" font-family="DM Mono">text_findings[]</text>
+
+    <rect x="210" y="384" width="120" height="56" rx="5" fill="#FFFBEB" stroke="#FCD34D" stroke-width="0.8"/>
+    <text x="270" y="400" text-anchor="middle" font-size="9.5" font-weight="600" fill="#78350F">Symbol Agent</text>
+    <text x="270" y="413" text-anchor="middle" font-size="8.5" fill="#B45309" font-family="DM Mono">YOLO v11 · 52 classes</text>
+    <text x="270" y="426" text-anchor="middle" font-size="8.5" fill="#B45309" font-family="DM Mono">ISO 15223-1 lookup</text>
+    <text x="270" y="434" text-anchor="middle" font-size="7.5" fill="#FCD34D" font-family="DM Mono">symbol_findings[]</text>
+
+    <rect x="342" y="384" width="120" height="56" rx="5" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="0.8"/>
+    <text x="402" y="400" text-anchor="middle" font-size="9.5" font-weight="600" fill="#065F46">Barcode Agent</text>
+    <text x="402" y="413" text-anchor="middle" font-size="8.5" fill="#0D7A55" font-family="DM Mono">ZXing + pyzbar</text>
+    <text x="402" y="426" text-anchor="middle" font-size="8.5" fill="#0D7A55" font-family="DM Mono">Self-validates digits</text>
+    <text x="402" y="434" text-anchor="middle" font-size="7.5" fill="#34D399" font-family="DM Mono">barcode_findings[]</text>
+
+    <rect x="474" y="384" width="120" height="56" rx="5" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="534" y="400" text-anchor="middle" font-size="9.5" font-weight="600" fill="#3B0764">Image Agent</text>
+    <text x="534" y="413" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">OpenCV + SSIM</text>
+    <text x="534" y="426" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">SIFT/RANSAC align</text>
+    <text x="534" y="434" text-anchor="middle" font-size="7.5" fill="#A78BFA" font-family="DM Mono">image_findings[]</text>
+
+    <rect x="606" y="384" width="120" height="56" rx="5" fill="#F7F8FB" stroke="#CBD0DE" stroke-width="0.8"/>
+    <text x="666" y="400" text-anchor="middle" font-size="9.5" font-weight="600" fill="#2D3142">Rule Agent</text>
+    <text x="666" y="413" text-anchor="middle" font-size="8.5" fill="#5C6070" font-family="DM Mono">49+ deterministic rules</text>
+    <text x="666" y="426" text-anchor="middle" font-size="8.5" fill="#5C6070" font-family="DM Mono">Zero LLM cost</text>
+    <text x="666" y="434" text-anchor="middle" font-size="7.5" fill="#94A3B8" font-family="DM Mono">rule_violations[]</text>
+
+    <!-- ── DETERMINISTIC ORCHESTRATOR ── -->
+    <line x1="430" y1="452" x2="430" y2="474" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="150" y="474" width="560" height="52" rx="7" fill="#0F1117"/>
+    <text x="430" y="494" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Deterministic Python Orchestrator</text>
+    <text x="430" y="510" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)" font-family="DM Mono">CLEAR (~70%) zero cost · AMBIGUOUS (~25%) Claude per finding · ESCALATE (~5%) human</text>
+    <!-- verdict label -->
+    <rect x="210" y="524" width="100" height="20" rx="4" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="0.8"/>
+    <text x="260" y="537" text-anchor="middle" font-size="8.5" fill="#065F46" font-family="DM Mono">PASS verdict</text>
+    <rect x="330" y="524" width="100" height="20" rx="4" fill="#FFFBEB" stroke="#FCD34D" stroke-width="0.8"/>
+    <text x="380" y="537" text-anchor="middle" font-size="8.5" fill="#78350F" font-family="DM Mono">CONDITIONAL</text>
+    <rect x="450" y="524" width="100" height="20" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="0.8"/>
+    <text x="500" y="537" text-anchor="middle" font-size="8.5" fill="#7F1D1D" font-family="DM Mono">FAIL verdict</text>
+
+    <!-- ── MODULE 5: REPORTS ── -->
+    <line x1="430" y1="544" x2="430" y2="566" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="260" y="566" width="340" height="48" rx="7" fill="#ECFEFF" stroke="#67E8F9" stroke-width="1"/>
+    <text x="430" y="585" text-anchor="middle" font-size="11" font-weight="600" fill="#0E4F60">Module 5 — Proof Report Generated</text>
+    <text x="430" y="601" text-anchor="middle" font-size="9" fill="#0E7490" font-family="DM Mono">Immutable PDF · SHA-256 hashed · Source-tagged findings</text>
+
+    <!-- ── MODULE 4: APPROVAL WORKFLOW ── -->
+    <line x1="430" y1="614" x2="430" y2="636" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="150" y="636" width="560" height="100" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+    <text x="430" y="656" text-anchor="middle" font-size="11" font-weight="600" fill="#3B0764">Module 4 — Approval Workflow</text>
+
+    <!-- departments -->
+    <rect x="168" y="664" width="76" height="32" rx="4" fill="#fff" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="206" y="677" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">Regulatory</text>
+        <text x="292" y="689" text-anchor="middle" font-size="8" fill="#7C3AED">Dept 2</text>
+
+    <rect x="340" y="664" width="76" height="32" rx="4" fill="#fff" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="378" y="677" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">R&amp;D</text>
+    <text x="378" y="689" text-anchor="middle" font-size="8" fill="#7C3AED">Dept 3</text>
+
+    <rect x="426" y="664" width="76" height="32" rx="4" fill="#fff" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="464" y="677" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">Marketing</text>
+    <text x="464" y="689" text-anchor="middle" font-size="8" fill="#7C3AED">Dept 4</text>
+
+    <rect x="512" y="664" width="76" height="32" rx="4" fill="#fff" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="550" y="677" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">Legal</text>
+    <text x="550" y="689" text-anchor="middle" font-size="8" fill="#7C3AED">Dept 5</text>
+
+    <rect x="598" y="664" width="96" height="32" rx="4" fill="#fff" stroke="#C4B5FD" stroke-width="0.8"/>
+    <text x="646" y="677" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">Mfg / Release</text>
+    <text x="646" y="689" text-anchor="middle" font-size="8" fill="#7C3AED">Dept 6</text>
+
+    <text x="430" y="724" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-family="DM Mono">21 CFR Part 11 e-signature · Reminders Day 3 · Escalation Day 5 · workflow_events logged</text>
+
+    <!-- Decision -->
+    <line x1="430" y1="736" x2="430" y2="756" stroke="#CBD0DE" stroke-width="1" marker-end="url(#arr)"/>
+    <polygon points="430,756 490,786 430,816 370,786" fill="#F7F8FB" stroke="#CBD0DE" stroke-width="1.5"/>
+    <text x="430" y="783" text-anchor="middle" font-size="10" font-weight="600" fill="#2D3142">All</text>
+    <text x="430" y="797" text-anchor="middle" font-size="10" font-weight="600" fill="#2D3142">signed?</text>
+
+    <line x1="370" y1="786" x2="290" y2="786" stroke="#BE1E2D" stroke-width="1" marker-end="url(#arr-r)"/>
+    <rect x="140" y="768" width="150" height="36" rx="6" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+    <text x="215" y="783" text-anchor="middle" font-size="10" font-weight="600" fill="#7F1D1D">Rejected</text>
+    <text x="215" y="797" text-anchor="middle" font-size="8.5" fill="#BE1E2D" font-family="DM Mono">Reason to initiator</text>
+
+    <line x1="490" y1="786" x2="560" y2="786" stroke="#0D7A55" stroke-width="1" marker-end="url(#arr-g)"/>
+    <rect x="560" y="768" width="150" height="36" rx="6" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1"/>
+    <text x="635" y="783" text-anchor="middle" font-size="10" font-weight="600" fill="#065F46">All approved</text>
+    <text x="635" y="797" text-anchor="middle" font-size="8.5" fill="#0D7A55" font-family="DM Mono">6/6 e-signatures</text>
+
+    <!-- Manufacturing release -->
+    <line x1="635" y1="804" x2="635" y2="824" stroke="#0D7A55" stroke-width="1" marker-end="url(#arr-g)"/>
+    <rect x="460" y="824" width="340" height="44" rx="7" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1"/>
+    <text x="630" y="841" text-anchor="middle" font-size="11" font-weight="600" fill="#065F46">Module 6 — Manufacturing Release</text>
+    <text x="630" y="857" text-anchor="middle" font-size="9" fill="#0D7A55" font-family="DM Mono">Version locked · Notified · Print event in audit log</text>
+
+    <!-- Audit bar -->
+    <rect x="20" y="356" width="24" height="520" rx="4" fill="#0F1117" opacity="0.05"/>
+    <text x="32" y="620" text-anchor="middle" font-size="8" fill="#0F1117" opacity="0.35" font-family="DM Mono" transform="rotate(-90,32,620)">AUDIT LOG — Every event · Immutable · Timestamped · Actor-attributed</text>
+
+    <!-- DB row -->
+    <rect x="20" y="886" width="820" height="28" rx="5" fill="#F7F8FB" stroke="#E4E7EF" stroke-width="1"/>
+    <text x="430" y="903" text-anchor="middle" font-size="9.5" font-weight="500" fill="#2D3142">PostgreSQL — label_variants · change_requests · workflow_events · pipeline_runs · reports · audit_log</text>
+
+    <!-- Legend -->
+    <rect x="20" y="930" width="11" height="11" rx="2" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="0.8"/>
+    <text x="35" y="940" font-size="8.5" fill="#5C6070" font-family="DM Mono">Built / working</text>
+    <rect x="140" y="930" width="11" height="11" rx="2" fill="#EBF2FF" stroke="#93C5FD" stroke-width="0.8"/>
+    <text x="155" y="940" font-size="8.5" fill="#5C6070" font-family="DM Mono">Build in v1</text>
+    <rect x="250" y="930" width="11" height="11" rx="2" fill="#FFF7ED" stroke="#FCD34D" stroke-width="0.8" stroke-dasharray="4 3"/>
+    <text x="265" y="940" font-size="8.5" fill="#5C6070" font-family="DM Mono">External (design team)</text>
+    </svg>
+  </div>
+
+  <div class="callout c-amber">
+    <div class="callout-icon">⚠</div>
+    <div>
+      <div class="callout-title">The dashed yellow box is the critical design decision</div>
+      <div class="callout-text">LabelIX does not generate print-ready artwork in v1. The design team continues to work in InDesign. LabelIX owns the process around the artwork — change declaration, comparison verification, approval workflow, and manufacturing release. This is Option B — the correct v1 architecture given J&J's InDesign-sourced files.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM ══ -->
+<div id="panel-team" class="panel">
+  <div class="doc-eyebrow">Team</div>
+  <div class="doc-title">Team — current state and gaps</div>
+  <div class="doc-sub">Honest assessment. No inflation of experience levels.</div>
+  <div class="callout c-amber">
+    <div class="callout-icon">⚠</div>
+    <div>
+      <div class="callout-text">The current team built a working comparison engine and high-quality static POC in 3 months. The gaps are not talent — they are depth of experience in regulated software, PostgreSQL at scale, and senior engineering patterns. The four hires fill those gaps directly.</div>
+    </div>
+  </div>
+  <div class="card-grid">
+    <div class="card card-green">
+      <div class="card-title">Current team</div>
+      <div class="card-item check">Alex — Architect 10+ yrs. Architecture, J&J relationship, recruitment, regulatory consultant engagement</div>
+      <div class="card-item check">Rooban — Backend 3 yrs. FastAPI, PostgreSQL schema, Azure infra, Bedrock migration</div>
+      <div class="card-item check">Shrvaani — AI Full Stack 6 mo. PyMuPDF fix, orchestrator build (with Sr. ML)</div>
+      <div class="card-item check">Athmika — Frontend 6 mo. Next.js components, approval dashboard, tenant theming</div>
+      <div class="card-item check">Dhivya — ML 6 mo. YOLO validation, symbol library, rule engine ISO citations</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Hires needed — v1 cannot ship without these</div>
+      <div class="card-item risk">Sr. ML Engineer — Hire 1, July. CV model in production. Orchestrator design. Mentors Shrvaani and Dhivya.</div>
+      <div class="card-item risk">Sr. Backend Engineer — Hire 2, July. PostgreSQL advanced, Celery, regulated environment. Mentors Rooban.</div>
+      <div class="card-item risk">Sr. Frontend Engineer — Hire 3, Month 2. Next.js App Router, TypeScript strict. Mentors Athmika.</div>
+      <div class="card-item risk">Regulatory Consultant — Month 1, fractional. 21 CFR Part 11 practitioner. IQ/OQ/PQ. Must start Week 1.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TIMELINE ══ -->
+<div id="panel-timeline" class="panel">
+  <div class="doc-eyebrow">Timeline</div>
+  <div class="doc-title">V1 timeline — honest, with buffer</div>
+  <div class="doc-sub">Month by month. What exists at the end of each month that a real user can interact with.</div>
+  <div class="callout c-blue">
+    <div class="callout-icon">ℹ</div>
+    <div>
+      <div class="callout-title">Month 4 is the buffer month — not a planning failure</div>
+      <div class="callout-text">Something will go wrong in Months 1–3. That is not pessimism — it is how software delivery works. The buffer is the difference between a credible plan and an aspirational one.</div>
+    </div>
+  </div>
+  <div class="card-grid">
+    <div class="card card-red">
+      <div class="card-title">Now — Weeks 1–3</div>
+      <div class="card-item">Rooban: PostgreSQL schema, audit log trigger</div>
+      <div class="card-item">Shrvaani: PyMuPDF dual-path fix</div>
+      <div class="card-item">Dhivya: 20+ real J&J label pairs — document accuracy</div>
+      <div class="card-item">Rooban: Bedrock → Anthropic API migration</div>
+      <div class="card-item">Alex: Sr. ML and Sr. Backend recruitment posted</div>
+      <div class="card-item">Alex: Regulatory consultant engaged — first session</div>
+      <div class="card-item">Alex: J&J conversation — what do they need to sign?</div>
+      <div class="card-item check">Gate: accuracy documented, PDF fix deployed, recruitment active</div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">Month 1 — July</div>
+      <div class="card-item">Deterministic Python orchestrator — CLEAR/AMBIGUOUS/ESCALATE</div>
+      <div class="card-item">Full PostgreSQL schema live with migrations</div>
+      <div class="card-item">CSV import with validation and import log</div>
+      <div class="card-item">NLU chat — rules-based, 15 intents, navigation only</div>
+      <div class="card-item">Sr. ML + Sr. Backend onboarded, architecture walkthrough</div>
+      <div class="card-item">Second validation run — measure improvement over Week 1 baseline</div>
+      <div class="card-item check">Gate: comparison run with zero Claude cost on CLEAR findings</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title">Month 2 — August</div>
+      <div class="card-item">Change request initiation form</div>
+      <div class="card-item">Structured field editor with bulk propagation</div>
+      <div class="card-item">Proof request form connected to engine</div>
+      <div class="card-item">Immutable PDF proof report — SHA-256 hashed</div>
+      <div class="card-item">Email + Teams notifications</div>
+      <div class="card-item">Entra SSO + RBAC at API middleware</div>
+      <div class="card-item check">Gate: J&J label pair goes through initiation → comparison → report unbroken</div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-title">Month 3 — September</div>
+      <div class="card-item">Multi-department approval routing</div>
+      <div class="card-item">21 CFR Part 11 e-signature</div>
+      <div class="card-item">Escalation reminders — Celery jobs</div>
+      <div class="card-item">Manufacturing release + version locking</div>
+      <div class="card-item">Audit log viewer — search, filter, export</div>
+      <div class="card-item">Second tenant configured — isolation verified</div>
+      <div class="card-item check">Gate: complete label change — initiation to manufacturing release — in one workflow</div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title">Month 4 — October · Buffer</div>
+      <div class="card-item">Fix what broke in Months 1–3</div>
+      <div class="card-item">J&J QA reviews 10 reports — structured feedback</div>
+      <div class="card-item">Address top 3 feedback items</div>
+      <div class="card-item">OQ test scripts drafted by regulatory consultant</div>
+      <div class="card-item">Security review if J&J IT requires it</div>
+      <div class="card-item check">Gate: J&J pilot agreement signed</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SUCCESS ══ -->
+<div id="panel-success" class="panel">
+  <div class="doc-eyebrow">Success</div>
+  <div class="doc-title">What success looks like at Month 4</div>
+  <div class="doc-sub">Specific. Measurable. Either happened or did not.</div>
+  <div class="card-grid">
+    <div class="card card-green">
+      <div class="card-title">Product</div>
+      <div class="card-item check">50+ real J&J label pairs compared with documented accuracy results</div>
+      <div class="card-item check">One complete label change — initiation to release — without leaving the system</div>
+      <div class="card-item check">J&J QA team reviewed 10 proof reports and gave written feedback</div>
+      <div class="card-item check">Zero data leakage between tenants — verified by test</div>
+      <div class="card-item check">Claude API cost under $30/month at Professional tier usage</div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-title">Commercial</div>
+      <div class="card-item check">J&J pilot agreement signed</div>
+      <div class="card-item check">Pricing validated — J&J has seen it and not objected</div>
+      <div class="card-item check">One additional prospect in active conversation</div>
+      <div class="card-item check">IQ document draft delivered by regulatory consultant</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">What failure looks like — be honest</div>
+      <div class="card-item risk">J&J asks for a different feature set — means we did not have the right conversation upfront</div>
+      <div class="card-item risk">Engine accuracy still insufficient after Month 3 — means Week 1 validation was not acted on</div>
+      <div class="card-item risk">Senior hires not onboarded by Month 2 — timeline slips by the same amount</div>
+      <div class="card-item risk">IQ/OQ/PQ not started — J&J cannot use the system regardless of product quality</div>
+    </div>
+  </div>
+  <div class="callout c-purple">
+    <div class="callout-icon">★</div>
+    <div>
+      <div class="callout-title">The one metric that matters above all others</div>
+      <div class="callout-text">J&J signs a pilot agreement. Everything else is in service of that one outcome. Have the conversation with J&J's QA director in Month 2 — not Month 4. Their answer is the real answer. The plan above is our best current guess.</div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sb-btn').forEach(function(b){ b.classList.remove('active'); });
+  var el = document.getElementById('panel-' + id);
+  if (el) { el.classList.add('active'); document.querySelector('.main').scrollTop = 0; }
+  document.querySelectorAll('.sb-btn').forEach(function(b){
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + id + "'") > -1) {
+      b.classList.add('active');
+    }
+  });
+}
+</script>
+</body>
+</html>
