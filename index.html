@@ -183,6 +183,117 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
 .pn-label{font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:1px;}
 .pn-title{font-size:13px;font-weight:600;color:var(--ink);}
 .pn-btn{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:7px;background:var(--ink);color:#fff;border:none;cursor:pointer;}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .app { flex-direction: column; height: 100vh; overflow: hidden; }
+
+  .sidebar {
+    width: 100%; min-width: unset;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sb-brand { padding: 14px 16px 10px; }
+  .sb-brand-name { font-size: 14px; }
+
+  /* Mobile sidebar — groups are collapsible via existing JS */
+  .sb-group { padding: 8px 0 2px; }
+  .sb-btn { padding: 7px 16px; font-size: 12px; }
+
+  .main {
+    height: auto;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .panel {
+    padding: 24px 20px 60px;
+    max-width: 100%;
+  }
+
+  .doc-title { font-size: 20px; }
+  .doc-sub { font-size: 13px; }
+
+  /* Stack all grids to single column on mobile */
+  .card-grid,
+  .card-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tables — make them scroll horizontally */
+  .dtable-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .dtable { min-width: 560px; }
+
+  /* Callouts */
+  .callout { flex-direction: column; gap: 8px; }
+
+  /* SVG diagrams — allow horizontal scroll */
+  .wf-wrap { padding: 16px 12px; overflow-x: auto; }
+  .wf-wrap svg { min-width: 760px; }
+
+  /* Timeline */
+  .timeline { gap: 0; }
+  .tl-content { padding: 0 0 20px; }
+
+  /* Team rows */
+  .team-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+  .team-gap { margin-top: 4px; }
+
+  /* Q items */
+  .q-item { padding: 13px 14px; }
+  .q-text { font-size: 12.5px; }
+  .q-context { font-size: 11.5px; }
+}
+
+/* ── MOBILE NAV TOGGLE ── */
+@media (max-width: 768px) {
+  .mobile-nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    width: 100%;
+    border: none;
+  }
+  .mobile-nav-toggle-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .mobile-nav-toggle-arrow {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    transition: transform 0.2s;
+  }
+  .mobile-nav-toggle-arrow.open { transform: rotate(180deg); }
+  .mobile-nav-body { display: none; }
+  .mobile-nav-body.open {
+    display: block;
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav-toggle { display: none; }
+  .mobile-nav-body { display: block !important; }
+}
+
 </style>
 </head>
 <body>
@@ -194,6 +305,12 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
     <div class="sb-brand-name">LabelIX V1</div>
     <div class="sb-brand-sub">June 2026</div>
   </div>
+
+  <button class="mobile-nav-toggle" onclick="toggleMobileNav(this)">
+    <span class="mobile-nav-toggle-label">Navigation</span>
+    <span class="mobile-nav-toggle-arrow" id="mobile-arrow">▾</span>
+  </button>
+  <div class="mobile-nav-body" id="mobile-nav-body">
 
   <div class="sb-group">
     <div class="sb-group-label">Documents</div>
@@ -211,6 +328,7 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
     <button class="sb-btn" onclick="show('team')"><span class="sb-dot"></span>Team & gaps</button>
     <button class="sb-btn" onclick="show('timeline')"><span class="sb-dot"></span>Timeline</button>
     <button class="sb-btn" onclick="show('success')"><span class="sb-dot"></span>Success criteria</button>
+  </div>
   </div>
 </aside>
 
@@ -282,7 +400,7 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
 
   <div class="sec">
     <div class="sec-label">V1 feature scope — what is in, what is deferred, and why</div>
-    <table class="dtable">
+    <div class="dtable-wrap"><table class="dtable">
       <thead><tr><th>Feature</th><th>V1 Status</th><th>Rationale</th></tr></thead>
       <tbody>
         <tr><td>NLU chat — read-only navigation, 15–20 intents</td><td><span class="tag tag-in">V1</span></td><td>Rules-based classifier. Simple to build. No training data required. Navigation and data queries only — no write actions via chat.</td></tr>
@@ -315,7 +433,7 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
         <tr><td>DPO learning pipeline — AI learns from reviews</td><td><span class="tag tag-v2">V3+</span></td><td>Requires a base model to fine-tune and thousands of labelled preference pairs. Not v1 or v2.</td></tr>
         <tr><td>IQ/OQ/PQ validation documentation</td><td><span class="tag tag-risk">Parallel track</span></td><td>Must begin in Week 1 with regulatory consultant. Cannot be done after the fact. Runs alongside development.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="part-nav">
@@ -332,7 +450,7 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
 
   <div class="sec">
     <div class="sec-label">Core stack decisions</div>
-    <table class="dtable">
+    <div class="dtable-wrap"><table class="dtable">
       <thead><tr><th>Layer</th><th>Decision</th><th>Rejected</th><th>Rationale</th><th>Risk</th></tr></thead>
       <tbody>
         <tr><td>Frontend</td><td>Next.js 14 (App Router) + TypeScript strict</td><td>React SPA (Vite)</td><td>SSR for fast load. Edge middleware for tenant routing. API routes keep backend calls server-side. Preview URLs per branch.</td><td><span class="tag tag-risk">Medium</span> — App Router is newer. Team needs ramp-up time.</td></tr>
@@ -344,24 +462,24 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
         <tr><td>Infrastructure</td><td>Azure VM + Docker + Azure Container Registry</td><td>AKS (v1), AWS</td><td>Current infra already in Azure. Docker containers for all system libs. AKS is v2 when auto-scaling is needed.</td><td><span class="tag tag-in">Low</span> — already running.</td></tr>
         <tr><td>File storage</td><td>Azure Blob Storage</td><td>S3, local disk</td><td>Already in use. Tenant-scoped container paths. 7-year retention policy for regulated label records.</td><td><span class="tag tag-in">Low</span> — already working.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="sec">
     <div class="sec-label">Comparison engine — technology decisions</div>
-    <table class="dtable">
+    <div class="dtable-wrap"><table class="dtable">
       <thead><tr><th>Component</th><th>Decision</th><th>Status</th><th>Key point</th></tr></thead>
       <tbody>
         <tr><td>Symbol detection</td><td>YOLO v11 (Ultralytics) — 52 ISO 15223-1 classes</td><td><span class="tag tag-in">Built</span></td><td>Trained on 600 annotated label images. mAP@50 95.6% on training data. Needs validation on real J&J held-out set before go-live claim.</td></tr>
         <tr><td>Text extraction</td><td>PyMuPDF (vector PDFs) → AWS Textract fallback (scans)</td><td><span class="tag tag-risk">Fix in progress</span></td><td>Current pipeline is image-first — root cause of false positives. Dual-path fix is the first engineering task in v1.</td></tr>
-        <tr><td>Text comparison</td><td>Myers diff algorithm — character-level</td><td><span class="tag tag-in">Built</span></td><td>Deterministic. No LLM. Exact change detection per field.</td></tr>
+        <tr><td>Text comparison</td><td>Hungarian algorithm — line-level</td><td><span class="tag tag-in">Built</span></td><td>Deterministic. No LLM. Globally optimal line matching with Levenshtein scoring.</td></tr>
         <tr><td>Barcode detection</td><td>ZXing-cpp primary + pyzbar fallback</td><td><span class="tag tag-in">Built</span></td><td>Decodes Code128, EAN, GS1, DataMatrix, QR. Self-validates decoded value against printed digits.</td></tr>
         <tr><td>Image diff</td><td>OpenCV pixel diff + SSIM + SIFT/RANSAC alignment</td><td><span class="tag tag-in">Built</span></td><td>Handles skewed scans. Structural similarity for graphic regions.</td></tr>
         <tr><td>Rule engine</td><td>Python — 49 deterministic rules</td><td><span class="tag tag-in">Built</span></td><td>No LLM cost. Mandatory element checks. Needs ISO/FDA clause citations added.</td></tr>
         <tr><td>Orchestrator</td><td>Deterministic Python — CLEAR / AMBIGUOUS / ESCALATE routing</td><td><span class="tag tag-risk">To build</span></td><td>Replaces Claude as orchestrator. CLEAR findings: zero API cost. AMBIGUOUS: constrained LLM call per finding only. ESCALATE: human required. Brings Claude cost from $600/month to under $30.</td></tr>
         <tr><td>LLM (Claude)</td><td>Anthropic API — AMBIGUOUS findings only</td><td><span class="tag tag-risk">Downscoped</span></td><td>Claude is no longer the orchestrator. It handles only genuinely ambiguous findings — a minority. Direct Anthropic API replacing AWS Bedrock.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="sec">
@@ -995,6 +1113,32 @@ body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height
 </div>
 
 <script>
+
+function toggleMobileNav(btn) {
+  var body = document.getElementById('mobile-nav-body');
+  var arrow = document.getElementById('mobile-arrow');
+  if (!body) return;
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    arrow.classList.remove('open');
+  } else {
+    body.classList.add('open');
+    arrow.classList.add('open');
+  }
+}
+
+// On mobile, close nav after selecting a panel
+var origShow = show;
+show = function(id) {
+  origShow(id);
+  if (window.innerWidth <= 768) {
+    var body = document.getElementById('mobile-nav-body');
+    var arrow = document.getElementById('mobile-arrow');
+    if (body) body.classList.remove('open');
+    if (arrow) arrow.classList.remove('open');
+  }
+};
+
 function show(id) {
   document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.sb-btn').forEach(function(b){ b.classList.remove('active'); });
